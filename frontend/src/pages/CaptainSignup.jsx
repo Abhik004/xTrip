@@ -11,7 +11,7 @@ const CaptainSignup = () => {
     const submitHandler=(e)=>{
         e.preventDefault(); //to not allow to get fresh page on clicking login
         setUserData({
-          username:{
+          fullName:{
             firstName:firstName,
             lastName:lastName
           },
@@ -32,7 +32,7 @@ const CaptainSignup = () => {
 <form onSubmit={(e)=>{
     submitHandler(e)
 }}>
-<h3 className='text-lg font-medium mb-2'>What's your name?</h3>
+<h3 className='text-lg font-medium mb-2'>What's our Captain's name?</h3>
 <div className='flex gap-4 mb-5'>
 <input 
   value={firstName}
@@ -49,7 +49,7 @@ const CaptainSignup = () => {
   className='bg-[#eeee] w-1/2 mb-5 rounded px-4 py-2 border  text-lg placeholder:text-base'
   required type='text' placeholder='Last Name'/>
   </div>
-  <h3 className='text-lg font-medium mb-2'>What's your email??</h3>
+  <h3 className='text-lg font-medium mb-2'>What's our Captain's email??</h3>
   <input 
   value={email}
   onChange={(e)=>{
