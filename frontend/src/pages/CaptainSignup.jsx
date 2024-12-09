@@ -18,15 +18,16 @@ const CaptainSignup = () => {
 
     const { captain,setCaptain } = React.useContext(CaptainDataContext);
 
-    const submitHandler =async (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
+    
         const captainData = {
             fullname: {
-                firstname:firstName,
-                lastname:lastName,
+                firstname: firstName,
+                lastname: lastName,
             },
-            email:email,
-            password:password,
+            email: email,
+            password: password,
             vehicle: {
                 color: vehicleColor,
                 plate: vehiclePlate,
@@ -34,12 +35,27 @@ const CaptainSignup = () => {
                 vehicleType: vehicleType,
             },
         };
-        const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`,captainData)
-        if (response.status===201){
-          const data=response.data
-          setCaptain(data.captain)
-          localStorage.setItem('token',data.token)
-          navigate('/captain-home')
+    
+        try {
+            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+            const response = await axios.post(
+                `${import.meta.env.VITE_BASE_URL}/captains/register`,
+                captainData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                    },
+                }
+            );
+    
+            if (response.status === 201) {
+                const data = response.data;
+                setCaptain(data.captain);
+                localStorage.setItem('token', data.token);
+                navigate('/captain-home');
+            }
+        } catch (error) {
+            console.error('Error creating captain account:', error.response?.data?.message || error.message);
         }
         setEmail('');
         setPassword('');
@@ -135,9 +151,9 @@ const CaptainSignup = () => {
                             <option value='moto'>Moto</option>
                         </select>
                     </div>
-                    <button className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base'>
+                    <Link to='/captain-home' className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base'>
                         Create Captain Account!
-                    </button>
+                    </Link>
                     <p className='text-center'>
                         Already have an account?{' '}
                         <Link to='/captain-login' className='text-blue-600'>
