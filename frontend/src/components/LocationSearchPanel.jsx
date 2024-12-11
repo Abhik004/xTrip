@@ -5,7 +5,8 @@ const LocationSearchPanel = ({ suggestions, setVehiclePanel, setPanelOpen, setPi
     const handleSuggestionClick = (suggestion) => {
         if (activeField === 'pickup') {
             setPickup(suggestion)
-        } else if (activeField === 'destination') {
+        } 
+        else if (activeField === 'destination') {
             setDestination(suggestion)
         }
         // setVehiclePanel(true)
