@@ -107,19 +107,19 @@ module.exports.startRide = async ({ rideId, otp, captain }) => {
         throw new Error('Ride id and OTP are required');
     }
 
-    const ride = await rideModel.findOne({
+    const ride=await rideModel.findOne({
         _id: rideId
     }).populate('user').populate('captain').select('+otp');
 
-    if (!ride) {
+    if (!ride){
         throw new Error('Ride not found');
     }
 
-    if (ride.status !== 'accepted') {
+    if (ride.status !== 'accepted'){
         throw new Error('Ride not accepted');
     }
 
-    if (ride.otp !== otp) {
+    if (ride.otp !== otp){
         throw new Error('Invalid OTP');
     }
 
